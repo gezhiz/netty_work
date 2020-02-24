@@ -20,7 +20,7 @@ public class SocketServer {
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(bossGroup, workGroup).channel(NioServerSocketChannel.class)
-                    .childHandler(new SocketServerInitializer());
+                    .childHandler(new SocketServerHandler());
             ChannelFuture channelFuture = serverBootstrap.bind(8899).sync();
             channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
