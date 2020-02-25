@@ -1,9 +1,8 @@
-package com.worthto.socket.server;
+package com.worthto.socket.client;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
-import java.util.UUID;
 
 /**
  * 处理http请求
@@ -11,7 +10,7 @@ import java.util.UUID;
  * @description
  * @date 2020/2/24.
  */
-public class SocketServerHandler extends SimpleChannelInboundHandler<String>{
+public class SocketClientHandler extends SimpleChannelInboundHandler<String>{
 
     /**
      * 收到消息 messageReceived
@@ -21,8 +20,8 @@ public class SocketServerHandler extends SimpleChannelInboundHandler<String>{
      */
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, String httpObject) throws Exception {
-        System.out.println("channel address" + channelHandlerContext.channel().remoteAddress() + "msg:" + httpObject);
-        channelHandlerContext.writeAndFlush(" from server " + UUID.randomUUID());
+        System.out.println("client---- : channel address" + channelHandlerContext.channel().remoteAddress() + "msg:" + httpObject);
+        channelHandlerContext.writeAndFlush(" from client " + System.currentTimeMillis());
 
     }
 
