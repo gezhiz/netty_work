@@ -20,7 +20,7 @@ public class TestHttpServer {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(bossGroup, workGroup).channel(NioServerSocketChannel.class)
                     .childHandler(new TestHttpServerInitializer());
-            ChannelFuture channelFuture = serverBootstrap.bind(8859).sync();
+            ChannelFuture channelFuture = serverBootstrap.bind(8001).sync();
             channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
