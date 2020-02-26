@@ -17,8 +17,9 @@ public class SocketClient {
         try {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.group(eventGroup).channel(NioSocketChannel.class).handler(new SocketClientInitializer());
-            ChannelFuture channelFuture = bootstrap.connect("localhost", 9001);
-            channelFuture.channel().close().sync();
+            ChannelFuture channelFuture = bootstrap.connect("localhost", 9001).sync();
+            channelFuture.channel().closeFuture().sync();
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

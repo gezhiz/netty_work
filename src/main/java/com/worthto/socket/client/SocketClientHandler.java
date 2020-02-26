@@ -22,7 +22,11 @@ public class SocketClientHandler extends SimpleChannelInboundHandler<String>{
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, String httpObject) throws Exception {
         System.out.println("client---- : channel address" + channelHandlerContext.channel().remoteAddress() + "msg:" + httpObject);
         channelHandlerContext.writeAndFlush(" from client " + System.currentTimeMillis());
+    }
 
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        ctx.writeAndFlush("from client ask!");
     }
 
     @Override

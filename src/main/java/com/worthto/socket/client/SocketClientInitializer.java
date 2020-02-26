@@ -1,6 +1,5 @@
 package com.worthto.socket.client;
 
-import com.worthto.socket.server.SocketServerHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
