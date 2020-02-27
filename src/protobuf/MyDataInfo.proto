@@ -1,8 +1,8 @@
 syntax = "proto2";
 
-package com.worthto.protobuf;
+package com.worthto.compose.protobuf;
 
-option java_package = "com.worthto.compose";
+option java_package = "com.worthto.compose.protobuf";
 option optimize_for = SPEED;
 option java_outer_classname = "MyDataInfo";
 

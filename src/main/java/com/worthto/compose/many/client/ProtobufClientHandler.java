@@ -1,9 +1,8 @@
-package com.worthto.compose.client;
+package com.worthto.compose.many.client;
 
-import com.worthto.compose.MyDataInfo;
+import com.worthto.compose.protobuf.MyDataInfo;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
 /**
  * @author gezz

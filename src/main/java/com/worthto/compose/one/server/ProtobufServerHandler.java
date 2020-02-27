@@ -1,6 +1,6 @@
-package com.worthto.compose.server;
+package com.worthto.compose.one.server;
 
-import com.worthto.compose.MyDataInfo;
+import com.worthto.compose.protobuf.MyDataInfo;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
