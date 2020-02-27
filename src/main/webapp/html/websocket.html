@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="../js/common/jquery.min.js"></script>
+<body>
+
+<form>
+    <div>
+        <div>
+            <label>发送：</label>
+        </div>
+        <textarea rows="50" style="height: 300px;width: 800px;" id="sendContent">
+
+        </textarea>
+        <button id="send">发送数据</button>
+    </div>
+
+    <div>
+        <div>
+            <label>接受：</label>
+        </div>
+        <textarea rows="50" id="content" style="height: 300px;width: 800px;">
+
+        </textarea>
+        <button id="clear">清空</button>
+    </div>
+</form>
+</body>
+
+<script>
+    $(function () {
+        var socket;
+        if (window.WebSocket) {
+            socket = new WebSocket("ws:localhost:9111/ws");
+            socket.onmessage = function (event) {
+                $("#content").html(event.data);
+            }
+            socket.onopen = function (event) {
+                $("#content").html('链接开启');
+            }
+            socket.onclose = function (event) {
+                $("#content").html('链接关闭');
+            }
+        } else {
+            alert("浏览器不支持WebSocket")
+        }
+
+        function sendMessage(message) {
+            if (!window.WebSocket) {
+                return;
+            }
+            if (socket.readyState == WebSocket.OPEN) {
+                socket.send(message);
+            } else {
+                alert('socket不可用');
+            }
+
+        }
+
+        $('#send').click(function (e) {
+            e.preventDefault();
+            sendMessage($('#sendContent').val());
+        });
+
+        $('#clear').click(function (e) {
+            e.preventDefault();
+            $('#content').html('');
+        });
+
+    })
+</script>
+</html>
