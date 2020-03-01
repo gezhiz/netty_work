@@ -24,8 +24,9 @@ public class NioTest2 {
         FileInputStream fileInputStream = new FileInputStream("/Users/gezz/IdeaProjects/netty_work/src/main/java/com/worthto/nio/NioTest2.java");
         FileChannel channel = fileInputStream.getChannel();
         ByteBuffer byteBuffer = ByteBuffer.allocate(5012);
-        channel.read(byteBuffer);
+        channel.read(byteBuffer);//把数据写入到bytebuf
 
+        //开始读缓存区
         byteBuffer.flip();
         //切换到写
         while (byteBuffer.hasRemaining()) {
