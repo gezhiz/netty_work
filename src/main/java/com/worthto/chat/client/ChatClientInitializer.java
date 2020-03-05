@@ -3,6 +3,8 @@ package com.worthto.chat.client;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.Delimiters;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.string.StringDecoder;
@@ -18,12 +20,11 @@ public class ChatClientInitializer extends ChannelInitializer<SocketChannel> {
 
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
-        ChannelPipeline channelPipeline = ch.pipeline();
-
-        channelPipeline.addLast("lengthFieldBasedFrameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
-        channelPipeline.addLast("lengthFieldPrepender", new LengthFieldPrepender(4));
-        channelPipeline.addLast(new StringDecoder(CharsetUtil.UTF_8));
-        channelPipeline.addLast(new StringEncoder(CharsetUtil.UTF_8));
-        channelPipeline.addLast(new ChatClientHandler());
+        ChannelPipeline pipeline = ch.pipeline();
+        //添加分隔符解码器
+        pipeline.addLast(new DelimiterBasedFrameDecoder(4096, Delimiters.lineDelimiter()));
+        pipeline.addLast(new StringDecoder(CharsetUtil.UTF_8));
+        pipeline.addLast(new StringEncoder(CharsetUtil.UTF_8));
+        pipeline.addLast(new ChatClientHandler());
     }
 }

@@ -25,7 +25,7 @@ public class ChatClientHandler extends SimpleChannelInboundHandler<String>{
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        ctx.channel().writeAndFlush("from client 我是" + ctx.channel().remoteAddress());
+        ctx.writeAndFlush("from client: 我是 client1" + "\r\n");
     }
 
     @Override

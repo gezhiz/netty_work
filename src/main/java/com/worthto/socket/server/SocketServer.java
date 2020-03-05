@@ -1,6 +1,5 @@
 package com.worthto.socket.server;
 
-import com.worthto.http.server.TestHttpServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
@@ -14,8 +13,11 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  */
 public class SocketServer {
     public static void main(String[] args) {
-        EventLoopGroup workGroup = new NioEventLoopGroup();
-        EventLoopGroup bossGroup = new NioEventLoopGroup();
+        int threadCount = 2;
+        //worker处理用户的链接
+        EventLoopGroup workGroup = new NioEventLoopGroup(threadCount);
+        //boss接受客户端的链接,然后交给workGroup
+        EventLoopGroup bossGroup = new NioEventLoopGroup(threadCount);
 
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();

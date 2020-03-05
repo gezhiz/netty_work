@@ -1,5 +1,6 @@
 package com.worthto.socket.server;
 
+import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -27,4 +28,5 @@ public class SocketServerInitializer extends ChannelInitializer<SocketChannel> {
         //自定义处理器
         channelPipeline.addLast(new SocketServerHandler());
     }
+
 }

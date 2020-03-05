@@ -1,6 +1,5 @@
 package com.worthto.websocket.server;
 
-import com.worthto.chat.server.ChatServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;

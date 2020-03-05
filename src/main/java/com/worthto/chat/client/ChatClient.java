@@ -21,11 +21,14 @@ public class ChatClient {
         try {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.group(eventGroup).channel(NioSocketChannel.class).handler(new ChatClientInitializer());
-            Channel channel = bootstrap.connect("localhost", 9111).sync().channel();
+            Channel channel = bootstrap.connect("localhost", 9001).sync().channel();
+//            channel.closeFuture().sync();
 
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
             while(true) {
-                channel.writeAndFlush(bufferedReader.readLine() + "\r\n");
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+                String msg = bufferedReader.readLine() + "\r\n";
+//                String msg = "心跳...";
+                channel.writeAndFlush(msg);
             }
 
         } catch (Exception e) {

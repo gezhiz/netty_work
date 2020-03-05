@@ -34,29 +34,29 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<String>{
         final Channel channel = channelHandlerContext.channel();
         if (StringUtils.isNotBlank(msg)) {
             channelGroup.forEach(ch -> {
-                if (channel != ch) {
-                    //不发送消息给自己
-                    ch.writeAndFlush("from server : channel " + channel.remoteAddress() + "发送消息：" + msg);
+                if (channel.equals(ch)) {
+                    //给当前channel回复消息已经发出
+                    channel.writeAndFlush("from server; 消息已发出:" + msg + "\r\n");
                 } else {
-                    channel.writeAndFlush("from server; 消息已传达:" + msg);
+                    ch.writeAndFlush("channel msg:" + channel.remoteAddress() + msg + "\r\n");
                 }
             });
         }
-    }
+}
 
 
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         Channel channel = ctx.channel();
-        channelGroup.writeAndFlush("from server : " + channel.remoteAddress() + "已接入");
+//        channelGroup.writeAndFlush("from server : " + channel.remoteAddress() + "已接入");
         channelGroup.add(channel);
-        System.out.println("from server : " + channel.remoteAddress() + "已接入");
+        System.out.println("server log: " + channel.remoteAddress() + "已接入");
     }
 
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
         Channel channel = ctx.channel();
-        channelGroup.writeAndFlush("from server : " + channel.remoteAddress() + "已离开");
+        channelGroup.writeAndFlush("server msg: " + channel.remoteAddress() + "已离开");
         System.out.println("server log : " + channel.remoteAddress() + "已离开");
         //remove的时候无需调用channelGroup的remove方法
         System.out.println("server log : 当前拥有" + channelGroup.size() + "个客户端已连接");
@@ -73,15 +73,15 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<String>{
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         Channel channel = ctx.channel();
-        channel.writeAndFlush("from server : 欢迎你" + channel.remoteAddress());
-        channelGroup.writeAndFlush("from server : " + channel.remoteAddress() + "已上线");
-        System.out.println("from server : " + channel.remoteAddress() + "已上线");
+        channel.writeAndFlush("server msg: 欢迎你" + channel.remoteAddress());
+        channelGroup.writeAndFlush("server msg: " + channel.remoteAddress() + "已上线");
+        System.out.println("server log : " + channel.remoteAddress() + "已上线");
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         Channel channel = ctx.channel();
         channelGroup.writeAndFlush("client : " + channel.remoteAddress() + "已下线");
-        System.out.println("from server : " + channel.remoteAddress() + "已下线");
+        System.out.println("server log : " + channel.remoteAddress() + "已下线");
     }
 }
