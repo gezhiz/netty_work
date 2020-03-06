@@ -1,6 +1,7 @@
 package com.worthto.netty.handler.client;
 
 import com.worthto.netty.handler.codec.ByteToLongDecoder;
+import com.worthto.netty.handler.codec.ByteToLongDecoder2;
 import com.worthto.netty.handler.codec.LongToByteEncoder;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -22,7 +23,8 @@ public class SocketClientInitializer extends ChannelInitializer<SocketChannel> {
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline channelPipeline = ch.pipeline();
 
-        channelPipeline.addLast(new ByteToLongDecoder());
+//        channelPipeline.addLast(new ByteToLongDecoder());
+        channelPipeline.addLast(new ByteToLongDecoder2());
         channelPipeline.addLast(new LongToByteEncoder());
 
         channelPipeline.addLast(new SocketClientHandler());
